@@ -12,9 +12,9 @@
     </div>
   <% end %>
 
-  <div class="form-group">
+  <div class="form-group d-flex flex-row pb-4 align-items-center">
     <%#= TODO: We will want to convert this so that it is actually posting the show_id value based on the selected show name here. %>
-    <%= form.label :show_name, "Show Name" %>
+    <%= form.label :show_name, "Show Name", class: "text-nowrap px-4" %>
     <%= form.text_field :show_name, { :required => true, :class => "form-control" } %>
     <%#= TODO: "Add Another Show" button. See the episode button TODO for plan details %>
   </div>

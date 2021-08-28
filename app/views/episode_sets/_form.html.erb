@@ -12,9 +12,9 @@
     </div>
   <% end %>
 
-  <div class="form-group">
+  <div class="form-group d-flex flex-row align-items-center">
     <%#= TODO: We will want to convert this so that it is actually posting the episode_id value based on the selected episode here. %>
-    <%= form.label :episode_name %>
+    <%= form.label :episode_name, "Episode Name", class: "text-nowrap px-3" %>
     <%= form.text_field :episode_name, { :required => true, :class => "form-control" } %>
     <!-- TODO: We will have a drop-down for the Season with fetched options
     Then a drop-down for the episode number which can be autofilled based on:

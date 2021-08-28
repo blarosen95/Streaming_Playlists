@@ -1,5 +1,5 @@
 <%#= form_with(model: playlist_draft) do |form| %>
-<%= form_with(model: @playlist_draft, local: true) do |form| %>
+<%= form_with(model: @playlist_draft, local: true, id: 'new_playlist_form') do |form| %>
   <% if @playlist_draft.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(@playlist_draft.errors.count, "error") %> prohibited this Playlist Draft from being saved:</h2>
@@ -11,26 +11,31 @@
       </ul>
     </div>
   <% end %>
-  <div class="form-group">
-    <%= form.label :title, "Playlist Title" %>
-    <%= form.text_field :title, { 'data-toggle' => 'tooltip', 'data-placement' => 'top', 'title' => 'Your playlist\'s title', :required => true, :class => "form-control" } %>
+  <div class="d-flex flex-column align-items-center">
+<!--    <div class="form-group mb-auto p-2">-->
+    <div class="form-group pt-5 d-flex align-items-center">
+      <%= form.label :title, "Playlist Title", class: 'px-4 text-nowrap' %>
+      <%= form.text_field :title, { 'data-toggle' => 'tooltip', 'data-placement' => 'top', 'title' => 'Your playlist\'s title', :required => true, :class => "form-control" } %>
+    </div>
+
+    <div class="show-set-form-group py-4">
+      <%= render :partial => 'show_sets/form', show_set: @show_set %>
+    </div>
+    <br/>
+    <%#= TODO: Rename submitTest (both as a class and as an ID) wherever it appears both below and in the SCSS %>
+    <div class="form-submit-button d-flex justify-content-center">
+    <span class="submitTest btn-5" id="submitTest">
+      Save Playlist
+    </span>
+    </div>
   </div>
 
-  <div class="show-set-form-group">
-    <%#= form.fields_for :show_sets do |_| %>
-    <!--      TODO: The following label and number_field might be better if replaced with a + button in the final ReactJS/Vue template
-                Ultimately, the purpose here is to then create that many Show sections for the user to add each Show's required details. -->
-    <%#= form.label :number_shows, "How many different Shows are in this playlist?" %>
-    <%#= form.number_field :number_shows, in: 1..5 %>
-    <%# end %>
-    <%= render :partial => 'show_sets/form', show_set: @show_set %>
-  </div>
-  <br/>
-  <!--  <div class="actions">-->
-  <div class="form-submit-button d-flex justify-content-center">
-    <span class="submitTest btn-5">
-      <%= form.label :submit_test, "Submit" %>
-    </span>
-    <%#= form.submit "Submit Form", class: "btn-5" %>
-  </div>
+  <script>
+      window.addEventListener("DOMContentLoaded", function () {
+          var form = document.getElementById("new_playlist_form");
+          document.getElementById("submitTest").addEventListener("click", function () {
+              form.submit();
+          });
+      });
+  </script>
 <% end %>

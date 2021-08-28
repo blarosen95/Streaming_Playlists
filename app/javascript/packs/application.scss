@@ -64,12 +64,13 @@ $fa-font-path: "~@fortawesome/fontawesome-free/webfonts";
     transition: none;
 
     &::before {
-      color: #fff;
+      //color: #fff;
+      color: inherit;
       content: "\f26c";
-      font-family: "Font Awesome 5 Free";
+      font-family: "Font Awesome 5 Free", serif;
       font-size: 100%;
       height: 100%;
-      right: 100%;
+      right: 110%;
       line-height: 3.3;
       position: absolute;
       top: 0;
