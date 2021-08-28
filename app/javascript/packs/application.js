@@ -8,6 +8,15 @@ import Turbolinks from "turbolinks"
 import * as ActiveStorage from "@rails/activestorage"
 import "channels"
 
+// Import desired Bootstrap JS files
+import 'bootstrap/js/src/collapse'
+import 'bootstrap/js/src/dropdown'
+import 'bootstrap/js/src/scrollspy'
+import 'bootstrap/js/src/tooltip'
+
+// Import FontAwesome Solid
+import "@fortawesome/fontawesome-free/css/solid.css"
+
 Rails.start()
 Turbolinks.start()
 ActiveStorage.start()
