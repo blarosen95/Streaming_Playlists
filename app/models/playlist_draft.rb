@@ -1,0 +1,2 @@
+class PlaylistDraft < ApplicationRecord
+end

@@ -1,0 +1,17 @@
+<%= form_with(model: playlist_draft) do |form| %>
+  <% if playlist_draft.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(playlist_draft.errors.count, "error") %> prohibited this playlist_draft from being saved:</h2>
+
+      <ul>
+        <% playlist_draft.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>
