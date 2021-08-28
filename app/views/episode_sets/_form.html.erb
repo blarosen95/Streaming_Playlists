@@ -1,0 +1,26 @@
+<%= form_with(model: @episode_set, local: true) do |form| %>
+  <%# TODO: Consider further DRY-enhancement much later on down the road... %>
+  <% if @show_set.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@show_set.errors.count, "error") %> prohibited this Show Set from being saved:</h2>
+
+      <ul>
+        <% @show_set.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="form-group">
+    <%#= TODO: We will want to convert this so that it is actually posting the episode_id value based on the selected episode here. %>
+    <%= form.label :episode_name %>
+    <%= form.text_field :episode_name, { :required => true, :class => "form-control" } %>
+    <!-- TODO: We will have a drop-down for the Season with fetched options
+    Then a drop-down for the episode number which can be autofilled based on:
+    The final drop-down for episode name with fetched values from Episodes table
+    HOWEVER: we will only really need to submit on the episode_id column from all of these.
+    This is a simple mixture of user experience oriented design while still aiming for simpler backend.
+    -->
+  </div>
+<% end %>

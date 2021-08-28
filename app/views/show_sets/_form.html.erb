@@ -1,0 +1,27 @@
+<%= form_with(model: @show_set, local: true) do |form| %>
+  <%# TODO: Consider further DRY-enhancement much later on down the road... %>
+  <% if @show_set.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@show_set.errors.count, "error") %> prohibited this Show Set from being saved:</h2>
+
+      <ul>
+        <% @show_set.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="form-group">
+    <%#= TODO: We will want to convert this so that it is actually posting the show_id value based on the selected show name here. %>
+    <%= form.label :show_name, "Show Name" %>
+    <%= form.text_field :show_name, { :required => true, :class => "form-control" } %>
+    <%#= TODO: "Add Another Show" button. See the episode button TODO for plan details %>
+  </div>
+
+  <div class="episode-set-form-group">
+    <%= render :partial => 'episode_sets/form', episode_set: @episode_set %>
+    <%#= TODO: "Add Another Episode" button. Ideally presented below the current episode fields but obviously placing it above the button %>
+  </div>
+
+<% end %>
