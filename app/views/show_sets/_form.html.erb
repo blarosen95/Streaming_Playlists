@@ -14,8 +14,9 @@
 
   <div class="form-group d-flex flex-row pb-4 align-items-center">
     <%#= TODO: We will want to convert this so that it is actually posting the show_id value based on the selected show name here. %>
-    <%= form.label :show_name, "Show Name", class: "text-nowrap px-4" %>
-    <%= form.text_field :show_name, { :required => true, :class => "form-control" } %>
+    <%#= form.label :show_name, "Show Name", class: "text-nowrap px-4" %>
+    <%#= form.text_field :show_name, { :required => true, :class => "form-control" } %>
+    <%= react_component("Shows") %>
     <%#= TODO: "Add Another Show" button. See the episode button TODO for plan details %>
   </div>
 
@@ -24,6 +25,15 @@
     <%#= TODO: "Add Another Episode" button. Ideally presented below the current episode fields but obviously placing it above the button %>
   </div>
 
-  <%= react_component("Episodes", { showName: "Bob's Burgers" }) %>
+  <%#= react_component("Episodes", { showName: "Bob's Burgers" }) %>
+<!--  <script>-->
+<!--      // var showName = document.getElementById("show_set_show_name").value;-->
+<!--      window.addEventListener("DOMContentLoaded", function () {-->
+<!--          var showNameField = document.getElementById("show_set_show_name");-->
+<!--          document.getElementById("episode_name").addEventListener("focus", function () {-->
+              <%#= react_component("Episodes", { showName: "Bob's Burgers" }) %>
+<!--          });-->
+<!--      });-->
+<!--  </script>-->
 
 <% end %>

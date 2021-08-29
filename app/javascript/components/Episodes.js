@@ -77,9 +77,9 @@ class Episodes extends React.Component {
     render() {
         return (
             <React.Fragment>
-                Show Name: {this.props.showName}
                 <ul>
                     {this.state.allEpisodes.map(episode => <li>{episode.Title}</li>)}
+                {/*    TODO: Put the items from above's conceptual listing approach sprint into the options for the episode_name input (must first convert input to a select) */}
                 </ul>
             </React.Fragment>
         );
