@@ -82,7 +82,6 @@ class Episodes extends React.Component {
     createCheckbox = episode => (
         <Checkbox
         label={episode.Title}
-        isChecked={false}
         onBoxChange={this.handleBoxChange}
         key={episode.imdbID}
         />
