@@ -1,6 +1,8 @@
 import React from "react"
 import PropTypes from "prop-types"
 import axios from "axios";
+import ReactDOM from "react-dom";
+import Checkbox from "./Checkbox";
 
 // const [state, setState] = useState({
 //     headers: [
@@ -24,7 +26,7 @@ class Episodes extends React.Component {
         ],
         showName: '',
         totalSeasons: 0,
-        allEpisodes: []
+        allEpisodes: [],
     }
 
     headers = [
@@ -39,9 +41,7 @@ class Episodes extends React.Component {
 
     async componentDidMount() {
         await this.setTotalSeasons();
-        // console.log(this.state.totalSeasons);
         await this.setAllEpisodes();
-        // console.log(this.state.allEpisodes)
     }
 
     async setTotalSeasons() {
@@ -69,25 +69,51 @@ class Episodes extends React.Component {
                     console.error(e);
                 });
         } else {
-            console.debug("Could not set state for allEpisodes. Else statement reached!");
+            console.error("Could not set state for allEpisodes. Else statement reached!");
             // TODO: Revisit once the output of successful GETs are being utilized properly. We will then want this to provide our "sorry nothing found" verbiage and state values as needed.
         }
     }
 
+    handleBoxChange = changeEvent => {
+        const {name} = changeEvent.target;
+        console.debug(`${name}: TODO!`);
+    }
+
+    createCheckbox = episode => (
+        <Checkbox
+        label={episode.Title}
+        isChecked={false}
+        onBoxChange={this.handleBoxChange}
+        key={episode.imdbID}
+        />
+    );
+
+    createCheckboxes = () => this.state.allEpisodes.map(this.createCheckbox);
+
     render() {
         return (
+
             <React.Fragment>
-                <ul>
-                    {this.state.allEpisodes.map(episode => <li>{episode.Title}</li>)}
-                {/*    TODO: Put the items from above's conceptual listing approach sprint into the options for the episode_name input (must first convert input to a select) */}
-                </ul>
+                <div className="form-group d-flex flex-column align-items-center">
+                    {/*{this.state.allEpisodes.map(episode => <label className="text-nowrap px-3" htmlFor={episode.imdbID}>{episode.Title}</label>)}*/}
+                    {/*{this.state.allEpisodes.map(episode => <input type="checkbox" name={episode.imdbID} value={episode.Title}/>)}*/}
+                    {/*{this.state.allEpisodes.map(episode =>*/}
+                    {/*        <label className="text-nowrap px-3" htmlFor={episode.imdbID}>{episode.Title}</label>,*/}
+                    {/*    this.state.allEpisodes.map(episode => <input type="checkbox" name={episode.imdbID}*/}
+                    {/*                                                 value={episode.Title}/>))}*/}
+                    {this.createCheckboxes()}
+                </div>
+
             </React.Fragment>
         );
     }
+
+
 }
 
 Episodes.propTypes = {
     showName: PropTypes.string,
+    episodesCount: PropTypes.number,
 };
 
 

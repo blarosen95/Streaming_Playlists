@@ -1,9 +1,7 @@
 import React from "react"
 import PropTypes from "prop-types"
 import Episodes from "./Episodes";
-import {useState} from "react";
-
-// const [state, setState] = useState('start')
+import {times} from 'lodash';
 
 class Shows extends React.Component {
 
@@ -21,28 +19,34 @@ class Shows extends React.Component {
                     <input required={true} className="form-control" type="text" name="show_set[show_name]"
                            id="show_set_show_name"
                            onBlur={(e) => {
-                               console.debug(e.currentTarget.value);
                                this.setState({
                                    showName: e.currentTarget.value,
-                                   episodesCount: this.state.episodesCount + 1
+                                   episodesCount: this.state.episodesCount + 1 // TODO: We add in more than one place!! This may be debug gold later on.
                                });
                            }}
                     />
-
-                    {this.state.episodesCount >= 1 && <Episodes showName={this.state.showName}/>}
                 </div>
+                <div className="form-submit-button d-flex justify-content-end">
+                    <span className="addEpisode btn-5" id="addEpisode" onClick={
+                        (e) => {
+                            this.setState({
+                                episodesCount: this.state.episodesCount + 1
+                            });
+                            console.debug(this.state.episodesCount);
+                        }}>
+                        Episode
+                    </span>
+                </div>
+                {this.state.episodesCount >= 1 && <Episodes showName={this.state.showName}/>}
+                {/*<div id="episodesDiv">*/}
+                {/*    {times(this.state.episodesCount, () => {*/}
+                {/*        <Episodes showName={this.state.showName}/> // TODO: This is subpar API usage. Every single one of these will run up the API Usage by 1, consider refactor such that API is called in Shows (this) instead!*/}
+                {/*        console.debug("Hello");*/}
+                {/*    })}*/}
+                {/*</div>*/}
             </React.Fragment>
         );
     }
-
-    // componentDidMount() {
-    //     console.debug("Mounted");
-    //     // window.addEventListener("DOMContentLoaded", function () {
-    //     document.getElementById("show_set_show_name").addEventListener("focus", function () {
-    //         console.debug("Hello?");
-    //     });
-    //     // });
-    // }
 
 }
 
