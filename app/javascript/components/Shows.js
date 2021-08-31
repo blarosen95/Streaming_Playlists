@@ -19,8 +19,8 @@ class Shows extends React.Component {
                                id="show_set_show_name"
                         />
                     </div>
-                    <div className="form-group d-flex flex-row pb-4 align-items-center">
-                        <label className="text-nowrap px-4" htmlFor="showNameLock">Lock Show Name?</label>
+                    <div className="form-group-box d-flex flex-row pb-4 justify-content-center align-items-center">
+                        <label className="text-nowrap px-4" htmlFor="showNameLock">Lock Show?</label>
                         <input required={true} className="form-check-input" name="showNameLock" type="checkbox"
                                onChange={(e) => {
                                    this.setState({
@@ -46,7 +46,7 @@ class Shows extends React.Component {
                 {/*</div>*/}
 
                 <div className="form-group d-flex flex-row pb-4 align-items-center justify-content-center">
-                {this.state.episodesCount >= 1 && <Episodes showName={this.state.showName}/>}
+                    {this.state.episodesCount >= 1 && <Episodes showName={this.state.showName}/>}
                 </div>
             </React.Fragment>
         );
