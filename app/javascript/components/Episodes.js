@@ -81,7 +81,15 @@ class Episodes extends React.Component {
 
             <React.Fragment>
                 <div className="form-ungroup d-flex flex-column align-items-center justify-content-center">
-                    <div style={{display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gridGap: 20, justifyItems: "center"}}>
+                    <div className="text-nowrap" style={{
+                        display: "grid",
+                        gridTemplateColumns: "repeat(3, 1fr)",
+                        gridTemplateRows: "auto",
+                        gridRowGap: 20,
+                        gridColumnGap: 60,
+                        justifyItems: "start",
+                        paddingLeft: "15%",
+                    }}>
                         {this.createCheckboxes()}
                     </div>
                 </div>
