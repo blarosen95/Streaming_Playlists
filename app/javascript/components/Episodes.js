@@ -1,20 +1,7 @@
 import React from "react"
 import PropTypes from "prop-types"
 import axios from "axios";
-import ReactDOM from "react-dom";
 import Checkbox from "./Checkbox";
-
-// const [state, setState] = useState({
-//     headers: [
-//         {text: "Title", value: "Title"},
-//         {text: "Date", value: "Released"},
-//         {text: "Episode", value: "Episode"},
-//         {text: "IMDB ID", value: "imdbID"}
-//     ],
-//     showName: '',
-//     totalSeasons: 0,
-//     allEpisodes: []
-// });
 
 class Episodes extends React.Component {
     state = {
@@ -81,9 +68,9 @@ class Episodes extends React.Component {
 
     createCheckbox = episode => (
         <Checkbox
-        label={episode.Title}
-        onBoxChange={this.handleBoxChange}
-        key={episode.imdbID}
+            label={episode.Title}
+            onBoxChange={this.handleBoxChange}
+            key={episode.imdbID}
         />
     );
 
@@ -94,13 +81,9 @@ class Episodes extends React.Component {
 
             <React.Fragment>
                 <div className="form-group d-flex flex-column align-items-center">
-                    {/*{this.state.allEpisodes.map(episode => <label className="text-nowrap px-3" htmlFor={episode.imdbID}>{episode.Title}</label>)}*/}
-                    {/*{this.state.allEpisodes.map(episode => <input type="checkbox" name={episode.imdbID} value={episode.Title}/>)}*/}
-                    {/*{this.state.allEpisodes.map(episode =>*/}
-                    {/*        <label className="text-nowrap px-3" htmlFor={episode.imdbID}>{episode.Title}</label>,*/}
-                    {/*    this.state.allEpisodes.map(episode => <input type="checkbox" name={episode.imdbID}*/}
-                    {/*                                                 value={episode.Title}/>))}*/}
-                    {this.createCheckboxes()}
+                    <div style={{display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gridGap: 20}}>
+                        {this.createCheckboxes()}
+                    </div>
                 </div>
 
             </React.Fragment>
