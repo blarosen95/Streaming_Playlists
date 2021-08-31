@@ -11,23 +11,21 @@
       </ul>
     </div>
   <% end %>
+
   <div class="d-flex flex-column align-items-center">
-<!--    <div class="form-group mb-auto p-2">-->
     <div class="form-group pt-5 d-flex align-items-center">
       <%= form.label :title, "Playlist Title", class: 'px-4 text-nowrap' %>
       <%= form.text_field :title, { 'data-toggle' => 'tooltip', 'data-placement' => 'top', 'title' => 'Your playlist\'s title', :required => true, :class => "form-control" } %>
     </div>
+  </div>
 
-    <div class="show-set-form-group py-4">
-      <%= render :partial => 'show_sets/form', show_set: @show_set %>
-    </div>
-    <br/>
-    <%#= TODO: Rename submitTest (both as a class and as an ID) wherever it appears both below and in the SCSS %>
-    <div class="form-submit-button d-flex justify-content-center">
+    <%= render :partial => 'show_sets/form', show_set: @show_set %>
+  <br/>
+  <%#= TODO: Rename submitTest (both as a class and as an ID) wherever it appears both below and in the SCSS %>
+  <div class="form-submit-button d-flex justify-content-center">
     <span class="submitTest btn-5" id="submitTest">
       Save Playlist
     </span>
-    </div>
   </div>
 
   <script>

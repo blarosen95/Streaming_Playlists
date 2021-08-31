@@ -80,7 +80,7 @@ class Episodes extends React.Component {
         return (
 
             <React.Fragment>
-                <div className="form-group d-flex flex-column align-items-center">
+                <div className="form-ungroup d-flex flex-column align-items-center justify-content-center">
                     <div style={{display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gridGap: 20}}>
                         {this.createCheckboxes()}
                     </div>
