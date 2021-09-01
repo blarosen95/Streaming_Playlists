@@ -113,6 +113,8 @@ $fa-font-path: "~@fortawesome/fontawesome-free/webfonts";
 
   border-radius: 5px;
 
+  text-align: center;
+
   float: left;
   width: 5em;
 
@@ -123,41 +125,55 @@ $fa-font-path: "~@fortawesome/fontawesome-free/webfonts";
   &::before {
     //content: "\f005";
     //content: "\f518";
-    content: "\00a0\00a0\00a0\00a0\f292";
-    color: inherit;
-    //right: 210%; //TODO: We have this text part way to working despite deciding to abandon it in previous commit message. None of the FA icons really do well here to sub in for the word "Season" or "Page" though.
+    position: absolute;
+    //content: "\00a0\00a0\00a0\00a0\f292";
+    content: "\00a0\00a0\00a0\00a0\f249";
+    color: #fff;
+    right: 110%; //TODO: We have this text part way to working despite deciding to abandon it in previous commit message. None of the FA icons really do well here to sub in for the word "Season" or "Page" though.
     font-family: "Font Awesome 5 Free", serif;
     font-size: 75%;
+
+    transition: right 0.1s, color 0.1ms;
   }
 
   &:hover {
     background-color: darken(#5f9ea0, 10%);
     top: 2px;
+
+    &::before {
+      right: 75%;
+      color: inherit;
+      transform: rotate(45deg);
+    }
   }
 }
 
+.season-span {
+  //text-align: end;
+}
 
-  //}
 
-  //.season-span {
-  //  display: inline-block;
-  //
+//}
 
-  //&:hover {
-  //  background-color: darken(#f15d22, 10%);
-  //}
-  //
-  //&.btn-5 {
-  //  background-color: #5f9ea0;
-  //  box-shadow: 0 6px darken(#5f9ea0, 10%);
-  //  transition: none;
-    //&:hover {
-    //  box-shadow: 0 4px darken(#5f9ea0, 10%);
-    //  top: 10px;
-    //
-    //  &::before {
-    //    right: 55%;
-    //  }
-    //}
-  //}
+//.season-span {
+//  display: inline-block;
+//
+
+//&:hover {
+//  background-color: darken(#f15d22, 10%);
+//}
+//
+//&.btn-5 {
+//  background-color: #5f9ea0;
+//  box-shadow: 0 6px darken(#5f9ea0, 10%);
+//  transition: none;
+//&:hover {
+//  box-shadow: 0 4px darken(#5f9ea0, 10%);
+//  top: 10px;
+//
+//  &::before {
+//    right: 55%;
+//  }
+//}
+//}
 //}
