@@ -93,6 +93,19 @@ $fa-font-path: "~@fortawesome/fontawesome-free/webfonts";
   // Continued: Eventually, I will need to revisit here and do this the right way. (Aligning label for show lock checkbox with label in row above it)
 }
 
+.season-select-wrapper {
+  display: flex;
+  align-self: end;
+}
+
+.season-select-wrapper > * {
+  flex: 1 1 15px;
+  margin-right: 20%;
+}
+
+
+// TODO: Most of below will be deprecated by the seasons now being a select element's options
+
 .season-buttons {
   display: flex;
   flex-wrap: wrap;

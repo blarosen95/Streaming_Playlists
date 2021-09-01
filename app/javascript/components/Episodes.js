@@ -3,6 +3,7 @@ import PropTypes from "prop-types"
 import axios from "axios";
 import Checkbox from "./Checkbox";
 import SeasonButton from "./SeasonButton";
+import SeasonOptions from "./SeasonOptions";
 import {range} from "lodash";
 
 
@@ -138,12 +139,16 @@ class Episodes extends React.Component {
     verifyMemo = () => console.log(this.state.episodesCount);
 
     handleSeasonChange = async (changeEvent) => {
-        const {id} = changeEvent.target;
-        const newSeason = parseInt(id.match(/(?<=season-)\d+$/g)[0]);
+        const newSeason = parseInt(changeEvent.target.value);
         await this.setState({currentSeason: newSeason});
         this.componentDidMount(); // TODO: Can't currently find best practices here; revisit.
     }
 
+    // handleSeasonSelect = async (selectEvent) => {
+    //     console.log(`Event: ${selectEvent}`);
+    // }
+
+    // TODO: DEPRECATED
     createSeasonButton = seasonNum => (
         <SeasonButton
             label={seasonNum}
@@ -152,6 +157,7 @@ class Episodes extends React.Component {
         />
     );
 
+    // TODO: DEPRECATED
     createSeasonButtons = () => this.state.allSeasons.map(this.createSeasonButton);
 
     render() {
@@ -171,10 +177,18 @@ class Episodes extends React.Component {
                         {this.createCheckboxes()}
                     </div>
                     {/*<div className="season-buttons d-flex flex-row align-items-center justify-content-center">*/}
-                    <div className="season-buttons">
-                        {this.createSeasonButtons()}
+                    {/*<div className="season-buttons">*/}
+                    {/*    {this.createSeasonButtons()}*/}
                     </div>
-                </div>
+                    <div className="season-select-wrapper">
+                        <label htmlFor="season-selector" className="text-nowrap">Change Seasons:</label>
+                        <select id="season-selector" className="season-select" onChange={this.handleSeasonChange}>
+                            {this.state.allSeasons.map((season) => {
+                                return (<SeasonOptions val={season}/>);
+                            })}
+                        </select>
+                    </div>
+                {/*</div>*/}
                 {/*{this.verifyMemo()}*/}
                 {/*<Pagination*/}
                 {/*    className="pagination-bar"*/}
