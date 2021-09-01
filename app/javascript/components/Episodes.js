@@ -45,12 +45,11 @@ class Episodes extends React.Component {
     async componentDidMount() {
         // await this.setTotalSeasons(); // TODO: Remove me, we do this in the setAllEpisodes
         await this.setAllEpisodes();
-        await this.setAllSeasons();
+        await this.setAllSeasons(); // TODO: Inefficient that this will run every update when I only currently have the need to re-run setAllEpisodes.
     }
 
     // async componentDidUpdate() {
     //     await this.setAllEpisodes();
-    //     await this.setAllSeasons();
     // }
 
     async setTotalSeasons() {
@@ -121,6 +120,9 @@ class Episodes extends React.Component {
     handleBoxChange = changeEvent => {
         const {name} = changeEvent.target;
         console.debug(`${name}: TODO!`);
+        // TODO: Normally we could get away with just submitting these values in form post.
+        //  However, that could get messy when multiple seasons are at play; simpler (to think about, at least) to just
+        //  push onto an array which gets submitted. TO-DO: data modeling on this array concept
     }
 
     createCheckbox = episode => (
@@ -135,12 +137,11 @@ class Episodes extends React.Component {
 
     verifyMemo = () => console.log(this.state.episodesCount);
 
-    handleSeasonChange = changeEvent => {
+    handleSeasonChange = async (changeEvent) => {
         const {id} = changeEvent.target;
-        // TODO: set state of currentSeason should do the trick (testing it in first run)
-        this.setState({currentSeason: parseInt(id.match(/(?<=season-)\d+$/g)[0])});
-        console.log(this.state.currentSeason);
-        this.componentDidMount();
+        const newSeason = parseInt(id.match(/(?<=season-)\d+$/g)[0]);
+        await this.setState({currentSeason: newSeason});
+        this.componentDidMount(); // TODO: Can't currently find best practices here; revisit.
     }
 
     createSeasonButton = seasonNum => (
