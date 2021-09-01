@@ -170,6 +170,7 @@ class Episodes extends React.Component {
                     }}>
                         {this.createCheckboxes()}
                     </div>
+                    {/*<div className="season-buttons d-flex flex-row align-items-center justify-content-center">*/}
                     <div className="season-buttons">
                         {this.createSeasonButtons()}
                     </div>

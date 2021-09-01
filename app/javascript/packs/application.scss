@@ -92,3 +92,52 @@ $fa-font-path: "~@fortawesome/fontawesome-free/webfonts";
   margin-left: -11.23%; // NOTE: This is honestly evil in just how close to perfection it is with current viewport sizing...
   // Continued: Eventually, I will need to revisit here and do this the right way. (Aligning label for show lock checkbox with label in row above it)
 }
+
+.season-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  padding-left: 20%;
+}
+
+.season-buttons > * {
+  flex: 1 1 15px;
+  margin: 10px;
+  padding-right: 20%;
+}
+
+.season-span {
+  display: inline-block;
+
+  &:hover {
+    background-color: darken(#f15d22, 10%);
+  }
+
+  &.btn-5 {
+    background-color: #5f9ea0;
+    box-shadow: 0 6px darken(#5f9ea0, 10%);
+    transition: none;
+
+    &::before {
+      //color: #fff;
+      color: inherit;
+      content: "\f26c";
+      font-family: "Font Awesome 5 Free", serif;
+      font-size: 100%;
+      height: 100%;
+      right: 110%;
+      line-height: 3.3;
+      position: absolute;
+      top: 0;
+      transition: all 0.25s;
+    }
+
+    &:hover {
+      box-shadow: 0 4px darken(#5f9ea0, 10%);
+      top: 2px;
+
+      &::before {
+        right: 55%;
+      }
+    }
+  }
+}
