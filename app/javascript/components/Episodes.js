@@ -159,7 +159,7 @@ class Episodes extends React.Component {
 
             <React.Fragment>
                 <div className="form-ungroup d-flex flex-column align-items-center justify-content-center">
-                    <div className="text-nowrap" style={{
+                    <div className="text-nowrap pb-4" style={{
                         display: "grid",
                         gridTemplateColumns: "repeat(3, 1fr)",
                         gridTemplateRows: "auto",

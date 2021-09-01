@@ -96,7 +96,9 @@ $fa-font-path: "~@fortawesome/fontawesome-free/webfonts";
 .season-buttons {
   display: flex;
   flex-wrap: wrap;
-  padding-left: 20%;
+  padding-left: 27%;
+  //padding-right: 8%;
+  margin-right: 8%;
 }
 
 .season-buttons > * {
@@ -105,39 +107,57 @@ $fa-font-path: "~@fortawesome/fontawesome-free/webfonts";
   padding-right: 20%;
 }
 
-.season-span {
-  display: inline-block;
+.season-span-wrapper {
+  position: relative;
+  background-color: #5f9ea0;
+
+  border-radius: 5px;
+
+  float: left;
+  width: 5em;
+
+  box-shadow: 0 4px darken(#5f9ea0, 10%);
+
+  transition: none;
+
+  &::before {
+    //content: "\f005";
+    //content: "\f518";
+    content: "\00a0\00a0\00a0\00a0\f292";
+    color: inherit;
+    //right: 210%; //TODO: We have this text part way to working despite deciding to abandon it in previous commit message. None of the FA icons really do well here to sub in for the word "Season" or "Page" though.
+    font-family: "Font Awesome 5 Free", serif;
+    font-size: 75%;
+  }
 
   &:hover {
-    background-color: darken(#f15d22, 10%);
-  }
-
-  &.btn-5 {
-    background-color: #5f9ea0;
-    box-shadow: 0 6px darken(#5f9ea0, 10%);
-    transition: none;
-
-    &::before {
-      //color: #fff;
-      color: inherit;
-      content: "\f26c";
-      font-family: "Font Awesome 5 Free", serif;
-      font-size: 100%;
-      height: 100%;
-      right: 110%;
-      line-height: 3.3;
-      position: absolute;
-      top: 0;
-      transition: all 0.25s;
-    }
-
-    &:hover {
-      box-shadow: 0 4px darken(#5f9ea0, 10%);
-      top: 2px;
-
-      &::before {
-        right: 55%;
-      }
-    }
+    background-color: darken(#5f9ea0, 10%);
+    top: 2px;
   }
 }
+
+
+  //}
+
+  //.season-span {
+  //  display: inline-block;
+  //
+
+  //&:hover {
+  //  background-color: darken(#f15d22, 10%);
+  //}
+  //
+  //&.btn-5 {
+  //  background-color: #5f9ea0;
+  //  box-shadow: 0 6px darken(#5f9ea0, 10%);
+  //  transition: none;
+    //&:hover {
+    //  box-shadow: 0 4px darken(#5f9ea0, 10%);
+    //  top: 10px;
+    //
+    //  &::before {
+    //    right: 55%;
+    //  }
+    //}
+  //}
+//}
