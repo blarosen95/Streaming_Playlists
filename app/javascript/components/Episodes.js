@@ -73,7 +73,6 @@ class Episodes extends React.Component {
         if (this.state.currentSeason) {
             await axios.get(`http://www.omdbapi.com/?apikey=6c68744e&t=${this.props.showName}&Season=${this.state.currentSeason}`)
                 .then(function (response) {
-                    console.log(response.data.totalSeasons);
                     // TODO: Remove above logging line, obviously. First, I'm taking some notes directly below
                     // The totalSeasons value for a show such as Homeland, which has officially ended, is correct.
                     // The totalSeasons value for a show such as Bob's Burgers, which is ongoing with an upcoming new season, is incorrect
@@ -179,15 +178,15 @@ class Episodes extends React.Component {
                     {/*<div className="season-buttons d-flex flex-row align-items-center justify-content-center">*/}
                     {/*<div className="season-buttons">*/}
                     {/*    {this.createSeasonButtons()}*/}
-                    </div>
-                    <div className="season-select-wrapper">
-                        <label htmlFor="season-selector" className="text-nowrap">Change Seasons:</label>
-                        <select id="season-selector" className="season-select" onChange={this.handleSeasonChange}>
-                            {this.state.allSeasons.map((season) => {
-                                return (<SeasonOptions val={season}/>);
-                            })}
-                        </select>
-                    </div>
+                </div>
+                <div className="season-select-wrapper">
+                    <label htmlFor="season-selector" className="text-nowrap">Change Seasons:</label>
+                    <select id="season-selector" className="season-select" onChange={this.handleSeasonChange}>
+                        {this.state.allSeasons.map((season) => {
+                            return (<SeasonOptions val={season}/>);
+                        })}
+                    </select>
+                </div>
                 {/*</div>*/}
                 {/*{this.verifyMemo()}*/}
                 {/*<Pagination*/}
