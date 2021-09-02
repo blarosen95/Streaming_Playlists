@@ -5,9 +5,24 @@ class Shows extends React.Component {
 
     state = {
         showName: "",
-        showsCount: 1,
-        episodesCount: 0,
+        showsCount: 1, // TODO: This would be helpful in a new "Shows" component which renders this component
+        // (TODO Continued) (by then, this one would be called something like "Show" instead of "Shows") X times.
+        episodesCount: 0, // TODO: This will not be part of the approach used in conditionally rendering the Episodes component for a given Show.
+        isShowLocked: false,
     }
+
+    // TODO: Handle changes in Episodes.js like this so that I don't need to call the update myself (might already work)
+    handleShowLock = async (changeEvent) => {
+        const showNameInput = document.getElementById("show_set_show_name");
+        if (!showNameInput.value) {
+            return;
+        }
+
+        await this.setState({showName: showNameInput.value});
+        const isLocked = changeEvent.target.checked;
+        await this.setState({isShowLocked: isLocked});
+        showNameInput.disabled = this.state.isShowLocked;
+    };
 
     render() {
         return (
@@ -22,13 +37,7 @@ class Shows extends React.Component {
                     <div className="form-group-box d-flex flex-row pb-4 justify-content-center align-items-center">
                         <label className="text-nowrap px-4" htmlFor="showNameLock">Lock Show?</label>
                         <input required={true} className="form-check-input" name="showNameLock" type="checkbox"
-                               onChange={(e) => {
-                                   this.setState({
-                                       showName: document.getElementById("show_set_show_name").value,
-                                       episodesCount: this.state.episodesCount + 1
-                                   });
-                                   document.getElementById("show_set_show_name").disabled = true;
-                               }}
+                               onChange={this.handleShowLock}
                         />
                     </div>
                 </div>
@@ -46,7 +55,7 @@ class Shows extends React.Component {
                 {/*</div>*/}
 
                 <div className="form-group d-flex flex-row pb-4 align-items-center justify-content-center">
-                    {this.state.episodesCount >= 1 && <Episodes showName={this.state.showName}/>}
+                    {this.state.isShowLocked && <Episodes showName={this.state.showName}/>}
                 </div>
             </React.Fragment>
         );
