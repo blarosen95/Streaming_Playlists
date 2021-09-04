@@ -163,15 +163,17 @@ class Episodes extends React.Component {
         return (
 
             <React.Fragment>
-                <div className="form-ungroup d-flex flex-column align-items-center justify-content-center">
-                    <div className="text-nowrap pb-4" style={{
+                {/*<div className="form-ungroup d-flex flex-column align-items-center justify-content-center">*/}
+                <div className="episodes-flex">
+                    {/*<div className="text-nowrap pb-4" style={{*/}
+                    <div className="pb-4" style={{
                         display: "grid",
                         gridTemplateColumns: "repeat(3, 1fr)",
                         gridTemplateRows: "auto",
                         gridRowGap: 20,
                         gridColumnGap: 60,
                         justifyItems: "start",
-                        paddingLeft: "15%",
+                        // paddingLeft: "15%",
                     }}>
                         {this.createCheckboxes()}
                     </div>
@@ -179,14 +181,20 @@ class Episodes extends React.Component {
                     {/*<div className="season-buttons">*/}
                     {/*    {this.createSeasonButtons()}*/}
                 </div>
-                <div className="season-select-wrapper">
-                    <label htmlFor="season-selector" className="text-nowrap">Change Seasons:</label>
-                    <select id="season-selector" className="season-select" onChange={this.handleSeasonChange}>
-                        {this.state.allSeasons.map((season) => {
-                            return (<SeasonOptions val={season}/>);
-                        })}
-                    </select>
+
+                {/*<div className="form-group d-flex flex-row pb-4 align-items-center justify-content-end">*/}
+                <div className="form-group d-flex flex-row pb-4 align-items-center justify-content-center">
+                    <div className="season-select-wrapper">
+                        <label htmlFor="season-selector" className="text-nowrap season-label">Change
+                            Seasons:&nbsp;&nbsp;</label>
+                        <select id="season-selector" className="season-select" onChange={this.handleSeasonChange}>
+                            {this.state.allSeasons.map((season) => {
+                                return (<SeasonOptions val={season} key={season}/>);
+                            })}
+                        </select>
+                    </div>
                 </div>
+
                 {/*</div>*/}
                 {/*{this.verifyMemo()}*/}
                 {/*<Pagination*/}

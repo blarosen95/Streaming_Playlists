@@ -54,9 +54,10 @@ class Shows extends React.Component {
                 {/*    </span>*/}
                 {/*</div>*/}
 
-                <div className="form-group d-flex flex-row pb-4 align-items-center justify-content-center">
+                {/* TODO: The following div wrapper is indeed the culprit for allowing the Season select input to shift left and right. Removal required for PR Approval. */}
+                {/*<div className="form-group d-flex flex-row pb-4 align-items-center justify-content-center potential-culprit">*/}
                     {this.state.isShowLocked && <Episodes showName={this.state.showName}/>}
-                </div>
+                {/*</div>*/}
             </React.Fragment>
         );
     }

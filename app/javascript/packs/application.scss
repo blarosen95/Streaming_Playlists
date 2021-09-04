@@ -99,70 +99,42 @@ $fa-font-path: "~@fortawesome/fontawesome-free/webfonts";
 }
 
 .season-select-wrapper > * {
-  flex: 1 1 15px;
-  margin-right: 20%;
+  flex: 0 0 15px;
+  //margin-right: 20%;
+  //margin-left: -1.5rem;
 }
 
-
-// TODO: Most of below will be deprecated by the seasons now being a select element's options
-
-.season-buttons {
-  display: flex;
-  flex-wrap: wrap;
-  padding-left: 27%;
-  //padding-right: 8%;
-  margin-right: 8%;
-}
-
-.season-buttons > * {
-  flex: 1 1 15px;
-  margin: 10px;
+.season-label {
+  //margin-left: -30%;
   padding-right: 20%;
+  margin-left: -20rem;
 }
 
-.season-span-wrapper {
-  position: relative;
-  background-color: #5f9ea0;
-
-  border-radius: 5px;
-
-  text-align: center;
-
-  float: left;
-  width: 5em;
-
-  box-shadow: 0 4px darken(#5f9ea0, 10%);
-
-  transition: none;
-
-  &::before {
-    //content: "\f005";
-    //content: "\f518";
-    position: absolute;
-    //content: "\00a0\00a0\00a0\00a0\f292";
-    content: "\00a0\00a0\00a0\00a0\f249";
-    color: #fff;
-    right: 110%; //TODO: We have this text part way to working despite deciding to abandon it in previous commit message. None of the FA icons really do well here to sub in for the word "Season" or "Page" though.
-    font-family: "Font Awesome 5 Free", serif;
-    font-size: 75%;
-
-    transition: right 0.1s, color 0.1ms;
-  }
-
-  &:hover {
-    background-color: darken(#5f9ea0, 10%);
-    top: 2px;
-
-    &::before {
-      right: 75%;
-      color: inherit;
-      transform: rotate(45deg);
-    }
-  }
+.season-select {
+  margin-left: 0.75rem;
 }
 
 .season-span {
   //text-align: end;
+}
+
+.episode-label {
+  margin: 0 !important;
+}
+
+.episode-check {
+  align-self: center;
+}
+
+.episodes-flex {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-left: 6.6%;
+}
+
+.episodes-flex > * {
+  flex: 0 0 800px;
 }
 
 
