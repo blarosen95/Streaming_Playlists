@@ -29,18 +29,26 @@ class Shows extends React.Component {
         return (
             <React.Fragment>
                 <div className="d-flex flex-column align-items-center justify-content-center py-4">
-                    <div className="form-group d-flex flex-row pb-4 align-items-center justify-content-center">
-                        <label className="text-nowrap px-4" htmlFor="show_set_show_name">Show Name</label>
+                    <div className="form-group d-flex flex-row pb-4 align-items-center justify-content-center form-lock">
+                        <label className="text-nowrap px-4 show-label" htmlFor="show_set_show_name">Show Name</label>
                         <input required={true} className="form-control" type="text" name="show_set[show_name]"
                                id="show_set_show_name"
                         />
-                    </div>
-                    <div className="form-group-box d-flex flex-row pb-4 justify-content-center align-items-center">
-                        <label className="text-nowrap px-4" htmlFor="showNameLock">Lock Show?</label>
-                        <input required={true} className="form-check-input" name="showNameLock" type="checkbox"
-                               onChange={this.handleShowLock}
+                        <input required={true} className="form-check-input" id="showNameLock" name="showNameLock"
+                               type="checkbox" onChange={this.handleShowLock}
                         />
+                        <label className="fa text-nowrap" htmlFor="showNameLock" />
                     </div>
+
+                    {/*<div className="form-group-box d-flex flex-row pb-4 justify-content-center align-items-center form-lock">*/}
+                    {/*    /!*<label className="text-nowrap px-4" htmlFor="showNameLock">Lock Show?</label>*!/*/}
+                    {/*    <input required={true} className="form-check-input" id="showNameLock" name="showNameLock" type="checkbox"*/}
+                    {/*           // onChange={this.handleShowLock} style={{marginLeft: 0.375+'rem'}}*/}
+                    {/*           onChange={this.handleShowLock}*/}
+                    {/*    />*/}
+                    {/*    <label className="fa text-nowrap px-4" htmlFor="showNameLock"/>*/}
+                    {/*</div>*/}
+
                 </div>
 
                 {/*<div className="form-submit-button d-flex justify-content-end">*/}
