@@ -95,23 +95,34 @@ $fa-font-path: "~@fortawesome/fontawesome-free/webfonts";
 
 .season-select-wrapper {
   display: flex;
-  align-self: end;
+  //align-self: end;
+  align-items: center;
+  justify-content: center;
+  margin-top: -1.5rem;
+  margin-bottom: 1.5rem;
 }
 
 .season-select-wrapper > * {
-  flex: 0 0 15px;
+  flex: 1 0 226.667px;
   //margin-right: 20%;
   //margin-left: -1.5rem;
 }
 
 .season-label {
-  //margin-left: -30%;
-  padding-right: 20%;
-  margin-left: -20rem;
+  //padding-right: 20%;
+  //margin-left: -20rem;
+  flex: 1 0 131px;
+  padding-left: 20%;
+  &::before {
+    content: "\f044";
+    font-family: "Font Awesome 5 Free", serif;
+    padding-right: 10%;
+  }
 }
 
 .season-select {
-  margin-left: 0.75rem;
+  //margin-left: 0.75rem;
+  flex: 1 0 226.667px;
 }
 
 .season-span {

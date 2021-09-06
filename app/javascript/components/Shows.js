@@ -1,5 +1,6 @@
 import React from "react"
 import Episodes from "./Episodes";
+import EpisodesAlt from "./EpisodesAlt";
 
 class Shows extends React.Component {
 
@@ -56,7 +57,8 @@ class Shows extends React.Component {
 
                 {/* TODO: The following div wrapper is indeed the culprit for allowing the Season select input to shift left and right. Removal required for PR Approval. */}
                 {/*<div className="form-group d-flex flex-row pb-4 align-items-center justify-content-center potential-culprit">*/}
-                    {this.state.isShowLocked && <Episodes showName={this.state.showName}/>}
+                {/*    {this.state.isShowLocked && <Episodes showName={this.state.showName}/>} TODO: Commented out to test EpisodesAlt with line below. */}
+                    {this.state.isShowLocked && <EpisodesAlt showName={this.state.showName}/>}
                 {/*</div>*/}
             </React.Fragment>
         );
