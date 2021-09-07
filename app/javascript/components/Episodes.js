@@ -18,6 +18,8 @@ class Episodes extends React.Component {
         allEpisodes: [],
         allSeasons: [],
         currentSeason: 1,
+        tracking: [],
+        trackingComplete: false,
     }
 
     headers = [
@@ -31,8 +33,37 @@ class Episodes extends React.Component {
     allEpisodes = [];
 
     async componentDidMount() {
-        await this.setAllEpisodes();
-        await this.setAllSeasons(); // TODO: Inefficient that this will run every update when I only currently have the need to re-run setAllEpisodes.
+        // await this.setAllEpisodes();
+        // await this.setAllSeasons(); // TODO: Inefficient that this will run every update when I only currently have the need to re-run setAllEpisodes.
+        await this.setTracking();
+        await this.setAllSeasons();
+    }
+
+    async setTracking() {
+        var tracking = this.state.tracking;
+        // TODO: Design a condition which only allows this to run if tracking state is empty (maybe place if statement in call to this function)
+        await axios.get(`http://www.omdbapi.com/?apikey=6c68744e&t=${this.props.showName}&Season=1`)
+            .then(function (response) {
+                this.setState({totalSeasons: response.data.totalSeasons});
+                tracking.push(response.data.Episodes);
+                // this.setState({tracking: tracking});
+                // this.setState({tracking: response.data.Episodes});
+            }.bind(this))
+            .catch(e => {
+                console.error(e);
+            });
+        for (let i = 2; i <= this.state.totalSeasons; i++) {
+            // console.log(`Season number ${i} in forI loop.`); // FIXME: Remove this line, tested and works (even with single season shows).
+            await axios.get(`http://www.omdbapi.com/?apikey=6c68744e&t=${this.props.showName}&Season=${i}`)
+                .then(function (response) {
+                    tracking.push(response.data.Episodes);
+                })
+            // console.log(this.state.tracking);
+        }
+        this.setState({tracking: tracking});
+        // console.log(this.state.tracking[0]);
+        console.log(this.state.tracking);
+        this.setState({trackingComplete: true});
     }
 
     async setAllEpisodes() {
@@ -41,6 +72,7 @@ class Episodes extends React.Component {
                 .then(function (response) {
                     this.setState({totalSeasons: response.data.totalSeasons});
                     this.setState({allEpisodes: response.data.Episodes});
+                    console.log(response.data.Episodes);
                 }.bind(this))
                 .catch(e => {
                     console.error(e);
@@ -75,19 +107,20 @@ class Episodes extends React.Component {
         />
     );
 
-    createCheckboxes = () => this.state.allEpisodes.map(this.createCheckbox);
+    // createCheckboxes = () => this.state.allEpisodes.map(this.createCheckbox);
+    createCheckboxes = () => this.state.tracking[this.state.currentSeason - 1].map(this.createCheckbox);
 
     handleSeasonChange = async (changeEvent) => {
         const newSeason = parseInt(changeEvent.target.value);
         await this.setState({currentSeason: newSeason});
-        this.componentDidMount();
+        // this.componentDidMount(); // TODO: Replace need to re-render with something that won't mutate tracking values.
     }
 
     render() {
         return (
 
             <React.Fragment>
-
+                {this.state.trackingComplete &&
                 <div className="form-group d-flex flex-row pb-4 align-items-center justify-content-center">
                     <div className="season-select-wrapper">
                         <label htmlFor="season-selector" className="text-nowrap season-label">Season</label>
@@ -99,7 +132,9 @@ class Episodes extends React.Component {
                         </select>
                     </div>
                 </div>
+                }
 
+                {this.state.trackingComplete &&
                 <div className="episodes-flex">
                     <div className="pb-4" style={{
                         display: "grid",
@@ -112,6 +147,7 @@ class Episodes extends React.Component {
                         {this.createCheckboxes()}
                     </div>
                 </div>
+                }
 
             </React.Fragment>
         );
