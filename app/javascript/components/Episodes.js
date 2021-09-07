@@ -35,8 +35,10 @@ class Episodes extends React.Component {
     async componentDidMount() {
         // await this.setAllEpisodes();
         // await this.setAllSeasons(); // TODO: Inefficient that this will run every update when I only currently have the need to re-run setAllEpisodes.
-        await this.setTracking();
-        await this.defaultTracking();
+        if (!this.state.trackingComplete) {
+            await this.setTracking();
+            await this.defaultTracking();
+        }
 
         await this.setAllSeasons();
     }
@@ -108,18 +110,11 @@ class Episodes extends React.Component {
 
     handleBoxChange = changeEvent => {
         const {name} = changeEvent.target;
-        console.debug(`${name}: TODO!`);
-        // TODO: Normally we could get away with just submitting these values in form post.
-        //  However, that could get messy when multiple seasons are at play; simpler (to think about, at least) to just
-        //  push onto an array which gets submitted. TO-DO: data modeling on this array concept
 
-        // this.state.tracking[this.state.currentSeason - 1][name - 1]['isSelected'] = true;
         this.state.tracking[this.state.currentSeason - 1][name - 1]['isSelected'] =
             !this.state.tracking[this.state.currentSeason - 1][name - 1]['isSelected'];
 
-        console.log(this.state.tracking[this.state.currentSeason - 1][name - 1]);
-
-        changeEvent.checked = this.state.tracking[this.state.currentSeason - 1][name - 1]['isSelected']; // FIXME: Need to immediately show the new checked value
+        this.componentDidMount();
     }
 
     createCheckbox = episode => (
