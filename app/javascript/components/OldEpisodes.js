@@ -2,10 +2,12 @@ import React from "react"
 import PropTypes from "prop-types"
 import axios from "axios";
 import Checkbox from "./Checkbox";
+import SeasonButton from "./SeasonButton";
 import SeasonOptions from "./SeasonOptions";
+import {range} from "lodash";
 
 
-class EpisodesAlt extends React.Component {
+class OldEpisodes extends React.Component {
     state = {
         headers: [
             {text: "Title", value: "Title"},
@@ -18,7 +20,18 @@ class EpisodesAlt extends React.Component {
         allEpisodes: [],
         allSeasons: [],
         currentSeason: 1,
+        // episodesCount: useMemo(() => {allEpisodes.length}, [allEpisodes]),
+
+        // currentPage: 1,
+        // setCurrentPage: 1
     }
+    /*
+        currentEpisodesData = useMemo(() => {
+            const firstPageIndex = (this.state.currentPage - 1) * pageSize;
+            const lastPageIndex = firstPageIndex + pageSize;
+            return this.state.allEpisodes.slice(firstPageIndex, lastPageIndex);
+        }, [this.state.currentPage])
+     */
 
     headers = [
         {text: "Title", value: "Title"},
@@ -31,8 +44,23 @@ class EpisodesAlt extends React.Component {
     allEpisodes = [];
 
     async componentDidMount() {
+        // await this.setTotalSeasons(); // TODO: Remove me, we do this in the setAllEpisodes
         await this.setAllEpisodes();
         await this.setAllSeasons(); // TODO: Inefficient that this will run every update when I only currently have the need to re-run setAllEpisodes.
+    }
+
+    // async componentDidUpdate() {
+    //     await this.setAllEpisodes();
+    // }
+
+    async setTotalSeasons() {
+        await axios.get(`http://www.omdbapi.com/?apikey=6c68744e&t=${this.props.showName}&type=series`)
+            .then(function (response) {
+                this.setState({totalSeasons: response.data.totalSeasons});
+            }.bind(this))
+            .catch(e => {
+                console.error(e);
+            });
     }
 
     async setAllEpisodes() {
@@ -74,6 +102,21 @@ class EpisodesAlt extends React.Component {
         }
     }
 
+    // slicerooni = useMemo((jsonObject) => {
+    //     var sliceable = [];
+    //     for(var key in jsonObject) {
+    //         if (!jsonObject.hasOwnProperty) {
+    //             console.debug("key");
+    //             continue;
+    //         }
+    //         sliceble.push(jsonObject[key])
+    //     }
+    //
+    //     const firstPageIndex = (this.state.currentPage - 1) * pageSize;
+    //     const lastPageIndex = firstPageIndex + pageSize;
+    //     return sliceable.slice(firstPageIndex, lastPageIndex);
+    // }, [this.state.currentPage]);
+
     handleBoxChange = changeEvent => {
         const {name} = changeEvent.target;
         console.debug(`${name}: TODO!`);
@@ -92,29 +135,34 @@ class EpisodesAlt extends React.Component {
 
     createCheckboxes = () => this.state.allEpisodes.map(this.createCheckbox);
 
+    verifyMemo = () => console.log(this.state.episodesCount);
+
     handleSeasonChange = async (changeEvent) => {
         const newSeason = parseInt(changeEvent.target.value);
         await this.setState({currentSeason: newSeason});
         this.componentDidMount(); // TODO: Can't currently find best practices here; revisit.
     }
 
+    // handleSeasonSelect = async (selectEvent) => {
+    //     console.log(`Event: ${selectEvent}`);
+    // }
+
+    // TODO: DEPRECATED
+    createSeasonButton = seasonNum => (
+        <SeasonButton
+            label={seasonNum}
+            onButtonClick={this.handleSeasonChange}
+            key={seasonNum}
+        />
+    );
+
+    // TODO: DEPRECATED
+    createSeasonButtons = () => this.state.allSeasons.map(this.createSeasonButton);
+
     render() {
         return (
 
             <React.Fragment>
-
-                <div className="form-group d-flex flex-row pb-4 align-items-center justify-content-center">
-                    <div className="season-select-wrapper">
-                        {/*<label htmlFor="season-selector" className="text-nowrap season-label">Change Season</label>*/}
-                        <label htmlFor="season-selector" className="text-nowrap season-label">Season</label>
-                        <select id="season-selector" className="season-select form-control" onChange={this.handleSeasonChange}>
-                            {this.state.allSeasons.map((season) => {
-                                return (<SeasonOptions val={season} key={season}/>);
-                            })}
-                        </select>
-                    </div>
-                </div>
-
                 {/*<div className="form-ungroup d-flex flex-column align-items-center justify-content-center">*/}
                 <div className="episodes-flex">
                     {/*<div className="text-nowrap pb-4" style={{*/}
@@ -135,20 +183,27 @@ class EpisodesAlt extends React.Component {
                 </div>
 
                 {/*<div className="form-group d-flex flex-row pb-4 align-items-center justify-content-end">*/}
+                <div className="form-group d-flex flex-row pb-4 align-items-center justify-content-center">
+                    <div className="season-select-wrapper">
+                        <label htmlFor="season-selector" className="text-nowrap season-label fw-bold">Change
+                            Seasons:&nbsp;&nbsp;</label>
+                        <select id="season-selector" className="season-select form-control" onChange={this.handleSeasonChange}>
+                            {this.state.allSeasons.map((season) => {
+                                return (<SeasonOptions val={season} key={season}/>);
+                            })}
+                        </select>
+                    </div>
+                </div>
 
-                {/*<div className="form-group d-flex flex-row pb-4 align-items-center justify-content-center">*/}
-                {/*    <div className="season-select-wrapper">*/}
-                {/*        <label htmlFor="season-selector" className="text-nowrap season-label fw-bold">Change*/}
-                {/*            Seasons:&nbsp;&nbsp;</label>*/}
-                {/*        <select id="season-selector" className="season-select form-control" onChange={this.handleSeasonChange}>*/}
-                {/*            {this.state.allSeasons.map((season) => {*/}
-                {/*                return (<SeasonOptions val={season} key={season}/>);*/}
-                {/*            })}*/}
-                {/*        </select>*/}
-                {/*    </div>*/}
                 {/*</div>*/}
-
-                {/*</div>*/}
+                {/*{this.verifyMemo()}*/}
+                {/*<Pagination*/}
+                {/*    className="pagination-bar"*/}
+                {/*    currentPage={this.state.currentPage}*/}
+                {/*    totalCount={this.state.allEpisodes.length}*/}
+                {/*    paginateOn={pageSize}*/}
+                {/*    onPageChange={page => this.slicerooni(page)}*/}
+                {/*/>*/}
             </React.Fragment>
         );
     }
@@ -156,10 +211,10 @@ class EpisodesAlt extends React.Component {
 
 }
 
-EpisodesAlt.propTypes = {
+OldEpisodes.propTypes = {
     showName: PropTypes.string,
     // episodesCount: PropTypes.number,
 };
 
 
-export default EpisodesAlt;
+export default OldEpisodes;

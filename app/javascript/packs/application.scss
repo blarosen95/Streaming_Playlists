@@ -35,8 +35,6 @@ $fa-font-path: "~@fortawesome/fontawesome-free/webfonts";
   }
 }
 
-//[type="submit"] + label {
-//.submitTest + label {
 .submitTest {
   background: #f15d22;
   border: none;
@@ -95,7 +93,6 @@ $fa-font-path: "~@fortawesome/fontawesome-free/webfonts";
 
 .season-select-wrapper {
   display: flex;
-  //align-self: end;
   align-items: center;
   justify-content: center;
   margin-top: -1.5rem;
@@ -104,15 +101,12 @@ $fa-font-path: "~@fortawesome/fontawesome-free/webfonts";
 
 .season-select-wrapper > * {
   flex: 1 0 226.667px;
-  //margin-right: 20%;
-  //margin-left: -1.5rem;
 }
 
 .season-label {
-  //padding-right: 20%;
-  //margin-left: -20rem;
   flex: 1 0 131px;
   padding-left: 20%;
+
   &::before {
     content: "\f044";
     font-family: "Font Awesome 5 Free", serif;
@@ -121,7 +115,6 @@ $fa-font-path: "~@fortawesome/fontawesome-free/webfonts";
 }
 
 .season-select {
-  //margin-left: 0.75rem;
   flex: 1 0 226.667px;
 }
 
@@ -139,7 +132,6 @@ $fa-font-path: "~@fortawesome/fontawesome-free/webfonts";
   display: flex;
   justify-content: center;
   align-items: center;
-  //margin-left: 6.6%;
   margin-left: 6.99%;
 }
 
@@ -151,22 +143,22 @@ $fa-font-path: "~@fortawesome/fontawesome-free/webfonts";
   margin-left: 3%;
 }
 
-.form-lock input[type="checkbox"]{
-  display:none;
+.form-lock input[type="checkbox"] {
+  display: none;
 }
+
 .form-lock input[type="checkbox"] + label.fa {
-  //color: #88E2E2;
-  //font-size: 25px;
   width: 25px;
   height: 25px;
   cursor: pointer;
   margin-left: 10%;
   margin-right: -10%;
 }
-.form-lock input[type="checkbox"]:checked +label.fa{
+
+.form-lock input[type="checkbox"]:checked + label.fa {
   background: #fff;
-  //background: inherit;
 }
+
 .form-lock input[type="checkbox"] + label.fa:before {
   display: inline-block;
   content: "\f09c";
@@ -179,31 +171,6 @@ $fa-font-path: "~@fortawesome/fontawesome-free/webfonts";
   filter: flipH();
 }
 
-.form-lock input[type="checkbox"]:checked +label.fa:before{
+.form-lock input[type="checkbox"]:checked + label.fa:before {
   content: "\f023";
 }
-
-//}
-
-//.season-span {
-//  display: inline-block;
-//
-
-//&:hover {
-//  background-color: darken(#f15d22, 10%);
-//}
-//
-//&.btn-5 {
-//  background-color: #5f9ea0;
-//  box-shadow: 0 6px darken(#5f9ea0, 10%);
-//  transition: none;
-//&:hover {
-//  box-shadow: 0 4px darken(#5f9ea0, 10%);
-//  top: 10px;
-//
-//  &::before {
-//    right: 55%;
-//  }
-//}
-//}
-//}

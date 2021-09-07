@@ -1,4 +1,3 @@
-<%#= form_with(model: playlist_draft) do |form| %>
 <%= form_with(model: @playlist_draft, local: true, id: 'new_playlist_form') do |form| %>
   <% if @playlist_draft.errors.any? %>
     <div id="error_explanation">
