@@ -36,7 +36,22 @@ class Episodes extends React.Component {
         // await this.setAllEpisodes();
         // await this.setAllSeasons(); // TODO: Inefficient that this will run every update when I only currently have the need to re-run setAllEpisodes.
         await this.setTracking();
+        await this.defaultTracking();
+
         await this.setAllSeasons();
+    }
+
+    async defaultTracking() {
+        var result = [];
+        for (let i = 0; i < this.state.totalSeasons; i++) {
+            result.push(this.state.tracking[i].map(function (el) {
+                var o = Object.assign({}, el);
+                o.isSelected = false;
+                return o;
+            }))
+        }
+        this.setState({tracking: result});
+        this.setState({trackingComplete: true});
     }
 
     async setTracking() {
@@ -62,8 +77,8 @@ class Episodes extends React.Component {
         }
         this.setState({tracking: tracking});
         // console.log(this.state.tracking[0]);
-        console.log(this.state.tracking);
-        this.setState({trackingComplete: true});
+        // console.log(this.state.tracking);
+        // this.setState({trackingComplete: true});
     }
 
     async setAllEpisodes() {
@@ -97,6 +112,14 @@ class Episodes extends React.Component {
         // TODO: Normally we could get away with just submitting these values in form post.
         //  However, that could get messy when multiple seasons are at play; simpler (to think about, at least) to just
         //  push onto an array which gets submitted. TO-DO: data modeling on this array concept
+
+        // this.state.tracking[this.state.currentSeason - 1][name - 1]['isSelected'] = true;
+        this.state.tracking[this.state.currentSeason - 1][name - 1]['isSelected'] =
+            !this.state.tracking[this.state.currentSeason - 1][name - 1]['isSelected'];
+
+        console.log(this.state.tracking[this.state.currentSeason - 1][name - 1]);
+
+        changeEvent.checked = this.state.tracking[this.state.currentSeason - 1][name - 1]['isSelected']; // FIXME: Need to immediately show the new checked value
     }
 
     createCheckbox = episode => (
@@ -104,6 +127,8 @@ class Episodes extends React.Component {
             label={episode.Title}
             onBoxChange={this.handleBoxChange}
             key={episode.imdbID}
+            isSelected={episode.isSelected}
+            number={episode.Episode}
         />
     );
 
