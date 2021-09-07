@@ -1,0 +1,14 @@
+<%= form_with(model: @episode_set, local: true) do |form| %>
+  <% if @show_set.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@show_set.errors.count, "error") %> prohibited this Show Set from being saved:</h2>
+
+      <ul>
+        <% @show_set.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+<% end %>

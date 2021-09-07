@@ -1,0 +1,176 @@
+$fa-font-path: "~@fortawesome/fontawesome-free/webfonts";
+@import "~@fortawesome/fontawesome-free/scss/solid";
+@import "~bootstrap/scss/bootstrap";
+
+[type="submit"] {
+  background: #f15d22;
+  border: none;
+  border-radius: 5px;
+  color: #fff;
+  cursor: pointer;
+  display: inline-block;
+  font-family: 'Rubik', sans-serif;
+  font-size: inherit;
+  font-weight: 500;
+  margin-bottom: 1rem;
+  outline: none;
+  padding: 1rem 85px;
+  position: relative;
+  transition: all 0.3s;
+  vertical-align: middle;
+
+  &:hover {
+    background-color: darken(#f15d22, 10%);
+  }
+
+  &.btn-5 {
+    background-color: #42ba3d;
+    box-shadow: 0 6px darken(#42ba3d, 10%);
+    transition: none;
+
+    &:hover {
+      box-shadow: 0 4px darken(#42ba3d, 10%);
+      top: 2px;
+    }
+  }
+}
+
+.submitTest {
+  background: #f15d22;
+  border: none;
+  border-radius: 5px;
+  color: #fff;
+  cursor: pointer;
+  display: inline-block;
+  font-family: 'Rubik', sans-serif;
+  font-size: inherit;
+  font-weight: 500;
+  margin-bottom: 1rem;
+  outline: none;
+  padding: 1rem 50px;
+  position: relative;
+  transition: all 0.3s;
+  vertical-align: middle;
+
+  &:hover {
+    background-color: darken(#f15d22, 10%);
+  }
+
+  &.btn-5 {
+    background-color: #42ba3d;
+    box-shadow: 0 6px darken(#42ba3d, 10%);
+    transition: none;
+
+    &::before {
+      //color: #fff;
+      color: inherit;
+      content: "\f26c";
+      font-family: "Font Awesome 5 Free", serif;
+      font-size: 100%;
+      height: 100%;
+      right: 110%;
+      line-height: 3.3;
+      position: absolute;
+      top: 0;
+      transition: all 0.25s;
+    }
+
+    &:hover {
+      box-shadow: 0 4px darken(#42ba3d, 10%);
+      top: 2px;
+
+      &::before {
+        right: 85%;
+      }
+    }
+  }
+}
+
+.form-group-box {
+  margin-left: -11.23%; // NOTE: This is honestly evil in just how close to perfection it is with current viewport sizing...
+  // Continued: Eventually, I will need to revisit here and do this the right way. (Aligning label for show lock checkbox with label in row above it)
+}
+
+.season-select-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: -1.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.season-select-wrapper > * {
+  flex: 1 0 226.667px;
+}
+
+.season-label {
+  flex: 1 0 131px;
+  padding-left: 20%;
+
+  &::before {
+    content: "\f044";
+    font-family: "Font Awesome 5 Free", serif;
+    padding-right: 10%;
+  }
+}
+
+.season-select {
+  flex: 1 0 226.667px;
+}
+
+.season-span {
+}
+
+.episode-label {
+}
+
+.episode-check {
+  margin-top: 6px;
+}
+
+.episodes-flex {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-left: 6.99%;
+}
+
+.episodes-flex > * {
+  flex: 0 0 800px;
+}
+
+.show-label {
+  margin-left: 3%;
+}
+
+.form-lock input[type="checkbox"] {
+  display: none;
+}
+
+.form-lock input[type="checkbox"] + label.fa {
+  width: 25px;
+  height: 25px;
+  cursor: pointer;
+  margin-left: 10%;
+  margin-right: -10%;
+}
+
+.form-lock input[type="checkbox"]:checked + label.fa {
+  background: #fff;
+}
+
+.form-lock input[type="checkbox"] + label.fa:before {
+  display: inline-block;
+  content: "\f09c";
+  cursor: pointer;
+
+  -moz-transform: scaleX(-1);
+  -o-transform: scaleX(-1);
+  -webkit-transform: scaleX(-1);
+  transform: scaleX(-1);
+  filter: flipH();
+}
+
+.form-lock input[type="checkbox"]:checked + label.fa:before {
+  content: "\f023";
+}

@@ -1,0 +1,38 @@
+<%= form_with(model: @playlist_draft, local: true, id: 'new_playlist_form') do |form| %>
+  <% if @playlist_draft.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@playlist_draft.errors.count, "error") %> prohibited this Playlist Draft from being saved:</h2>
+
+      <ul>
+        <% @playlist_draft.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="d-flex flex-column align-items-center">
+    <div class="form-group pt-5 d-flex align-items-center">
+      <%= form.label :title, "Playlist Title", class: 'px-4 text-nowrap' %>
+      <%= form.text_field :title, { 'data-toggle' => 'tooltip', 'data-placement' => 'top', 'title' => 'Your playlist\'s title', :required => true, :class => "form-control" } %>
+    </div>
+  </div>
+
+    <%= render :partial => 'show_sets/form', show_set: @show_set %>
+  <br/>
+  <%#= TODO: Rename submitTest (both as a class and as an ID) wherever it appears both below and in the SCSS %>
+  <div class="form-submit-button d-flex justify-content-center">
+    <span class="submitTest btn-5" id="submitTest">
+      Save Playlist
+    </span>
+  </div>
+
+  <script>
+      window.addEventListener("DOMContentLoaded", function () {
+          var form = document.getElementById("new_playlist_form");
+          document.getElementById("submitTest").addEventListener("click", function () {
+              form.submit();
+          });
+      });
+  </script>
+<% end %>
