@@ -20,6 +20,11 @@ class Episodes extends React.Component {
         currentSeason: 1,
         tracking: [],
         trackingComplete: false,
+
+        savingConcept: [],
+        savingConceptShow: false,
+        allSeasonsSaving: [],
+        hidingNormals: false,
     }
 
     headers = [
@@ -33,14 +38,15 @@ class Episodes extends React.Component {
     allEpisodes = [];
 
     async componentDidMount() {
-        // await this.setAllEpisodes();
-        // await this.setAllSeasons(); // TODO: Inefficient that this will run every update when I only currently have the need to re-run setAllEpisodes.
         if (!this.state.trackingComplete) {
             await this.setTracking();
             await this.defaultTracking();
         }
-
-        await this.setAllSeasons();
+        if (!this.state.savingConceptShow) {
+            await this.setAllSeasons();
+        } else {
+            await this.setAllSeasonsSavingDemo();
+        }
     }
 
     async defaultTracking() {
@@ -49,6 +55,7 @@ class Episodes extends React.Component {
             result.push(this.state.tracking[i].map(function (el) {
                 var o = Object.assign({}, el);
                 o.isSelected = false;
+                o.seasonNumber = i + 1;
                 return o;
             }))
         }
@@ -58,29 +65,21 @@ class Episodes extends React.Component {
 
     async setTracking() {
         var tracking = this.state.tracking;
-        // TODO: Design a condition which only allows this to run if tracking state is empty (maybe place if statement in call to this function)
         await axios.get(`http://www.omdbapi.com/?apikey=6c68744e&t=${this.props.showName}&Season=1`)
             .then(function (response) {
                 this.setState({totalSeasons: response.data.totalSeasons});
                 tracking.push(response.data.Episodes);
-                // this.setState({tracking: tracking});
-                // this.setState({tracking: response.data.Episodes});
             }.bind(this))
             .catch(e => {
                 console.error(e);
             });
         for (let i = 2; i <= this.state.totalSeasons; i++) {
-            // console.log(`Season number ${i} in forI loop.`); // FIXME: Remove this line, tested and works (even with single season shows).
             await axios.get(`http://www.omdbapi.com/?apikey=6c68744e&t=${this.props.showName}&Season=${i}`)
                 .then(function (response) {
                     tracking.push(response.data.Episodes);
                 })
-            // console.log(this.state.tracking);
         }
         this.setState({tracking: tracking});
-        // console.log(this.state.tracking[0]);
-        // console.log(this.state.tracking);
-        // this.setState({trackingComplete: true});
     }
 
     async setAllEpisodes() {
@@ -99,12 +98,24 @@ class Episodes extends React.Component {
 
     async setAllSeasons() {
         if (this.state.totalSeasons) {
-            // TODO: Replace with range call from lodash lib
+            // TODO: Replace with range call from lodash lib (edit: why? It's one more dependency I don't need.)
             let seasonsArr = [];
             for (let i = 1; i <= this.state.totalSeasons; i++) {
                 seasonsArr.push(i);
             }
             this.setState({allSeasons: seasonsArr});
+        }
+    }
+
+    async setAllSeasonsSavingDemo() {
+        if (this.state.totalSeasons) {
+            let seasonsArr = [];
+            this.state.savingConcept.map(season => {
+                if (season.length) {
+                    seasonsArr.push(season[0].seasonNumber);
+                }
+            });
+            this.setState({allSeasonsSaving: seasonsArr});
         }
     }
 
@@ -127,20 +138,46 @@ class Episodes extends React.Component {
         />
     );
 
+    createDemoLabel = episode => (
+        <label className="form-check-label episode-label" key={episode.imdbID}>
+            {episode.Title}
+        </label>
+    );
+
+    createDemoLabels = () => this.state.savingConcept[this.state.currentSeason - 1].map(this.createDemoLabel);
+
     // createCheckboxes = () => this.state.allEpisodes.map(this.createCheckbox);
     createCheckboxes = () => this.state.tracking[this.state.currentSeason - 1].map(this.createCheckbox);
 
     handleSeasonChange = async (changeEvent) => {
         const newSeason = parseInt(changeEvent.target.value);
         await this.setState({currentSeason: newSeason});
-        // this.componentDidMount(); // TODO: Replace need to re-render with something that won't mutate tracking values.
+    }
+
+    handleSeasonChangeSaveConcept = async (changeEvent) => {
+        const newSeason = parseInt(changeEvent.target.value);
+        await this.setState({currentSeason: newSeason});
+    }
+
+    handleSaveConcept = async (changeEvent) => {
+        var filtered = this.state.tracking.map(season => {
+            return season.filter(episode => {
+                return episode.isSelected;
+            });
+        });
+        await this.setState({savingConcept: filtered});
+        await this.setState({savingConceptShow: true});
+        await this.setState({hidingNormals: true});
+
+        this.componentDidMount();
     }
 
     render() {
         return (
 
             <React.Fragment>
-                {this.state.trackingComplete &&
+                {/*{this.state.trackingComplete &&*/}
+                {!this.state.hidingNormals && this.state.trackingComplete &&
                 <div className="form-group d-flex flex-row pb-4 align-items-center justify-content-center">
                     <div className="season-select-wrapper">
                         <label htmlFor="season-selector" className="text-nowrap season-label">Season</label>
@@ -154,7 +191,21 @@ class Episodes extends React.Component {
                 </div>
                 }
 
-                {this.state.trackingComplete &&
+                {this.state.savingConceptShow &&
+                <div className="form-group d-flex flex-row pb-4 align-items-center justify-content-center">
+                    <div className="season-select-wrapper">
+                        <label htmlFor="season-selector" className="text-nowrap season-label">Season</label>
+                        <select id="season-selector" className="season-select form-control"
+                                onChange={this.handleSeasonChangeSaveConcept}>
+                            {this.state.allSeasonsSaving.map((season) => {
+                                return (<SeasonOptions val={season} key={season}/>);
+                            })}
+                        </select>
+                    </div>
+                </div>
+                }
+
+                {!this.state.hidingNormals && this.state.trackingComplete &&
                 <div className="episodes-flex">
                     <div className="pb-4" style={{
                         display: "grid",
@@ -165,6 +216,27 @@ class Episodes extends React.Component {
                         justifyItems: "start",
                     }}>
                         {this.createCheckboxes()}
+                    </div>
+                </div>
+                }
+
+                {this.state.trackingComplete &&
+                <div className="demo-temp">
+                    <span onMouseDown={this.handleSaveConcept}>Test Saves</span>
+                </div>
+                }
+
+                {this.state.savingConceptShow &&
+                <div className="episodes-flex">
+                    <div className="pb-4" style={{
+                        display: "grid",
+                        gridTemplateColumns: "repeat(3, 1fr)",
+                        gridTemplateRows: "auto",
+                        gridRowGap: 20,
+                        gridColumnGap: 60,
+                        justifyItems: "start",
+                    }}>
+                        {this.createDemoLabels()}
                     </div>
                 </div>
                 }
