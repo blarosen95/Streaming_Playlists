@@ -9,6 +9,7 @@ class Shows extends React.Component {
         // (TODO Continued) (by then, this one would be called something like "Show" instead of "Shows") X times.
         episodesCount: 0, // TODO: This will not be part of the approach used in conditionally rendering the OldEpisodes component for a given Show.
         isShowLocked: false,
+        episodesSerial: [],
     }
 
     // TODO: Handle changes in OldEpisodes.js like this so that I don't need to call the update myself (might already work)
@@ -23,6 +24,11 @@ class Shows extends React.Component {
         await this.setState({isShowLocked: isLocked});
         showNameInput.disabled = this.state.isShowLocked;
     };
+
+    handleEpisodesSave = async (saveSerial) => {
+        await this.setState({episodesSerial: saveSerial});
+        console.log(this.state.episodesSerial);
+    }
 
     render() {
         return (
@@ -42,7 +48,7 @@ class Shows extends React.Component {
 
                 </div>
 
-                {this.state.isShowLocked && <Episodes showName={this.state.showName}/>}
+                {this.state.isShowLocked && <Episodes showName={this.state.showName} handleEpisodesSave={this.handleEpisodesSave} />}
             </React.Fragment>
         );
     }

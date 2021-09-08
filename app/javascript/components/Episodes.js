@@ -169,7 +169,16 @@ class Episodes extends React.Component {
         await this.setState({savingConceptShow: true});
         await this.setState({hidingNormals: true});
 
+        // console.log(this.props.showName);
+        // console.log(this.state.savingConcept);
+
+        this.props.handleEpisodesSave(this.state.savingConcept);
+
         this.componentDidMount();
+    }
+
+    async handleSaveReal() {
+
     }
 
     render() {
