@@ -33,7 +33,8 @@ class Episodes extends React.Component {
         {text: "Episode", value: "Episode"},
         {text: "IMDB ID", value: "imdbID"}
     ];
-    showName = '';
+    showName = this.props.showName;
+    showNumber = this.props.showNumber;
     totalSeasons = 0;
     allEpisodes = [];
 
@@ -159,6 +160,10 @@ class Episodes extends React.Component {
         await this.setState({currentSeason: newSeason});
     }
 
+    getLatestPlaylistTitle() {
+        return document.getElementById("playlist_draft_title").value;
+    }
+
     handleSaveConcept = async (changeEvent) => {
         var filtered = this.state.tracking.map(season => {
             return season.filter(episode => {
@@ -169,10 +174,12 @@ class Episodes extends React.Component {
         await this.setState({savingConceptShow: true});
         await this.setState({hidingNormals: true});
 
+        var playlistTitle = this.getLatestPlaylistTitle();
+
         // console.log(this.props.showName);
         // console.log(this.state.savingConcept);
 
-        this.props.handleEpisodesSave(this.state.savingConcept);
+        this.props.handleEpisodesSave(this.state.savingConcept, playlistTitle);
 
         this.componentDidMount();
     }
@@ -259,6 +266,7 @@ class Episodes extends React.Component {
 
 Episodes.propTypes = {
     showName: PropTypes.string,
+    showNumber: PropTypes.number,
 };
 
 

@@ -10,6 +10,11 @@ class Shows extends React.Component {
         episodesCount: 0, // TODO: This will not be part of the approach used in conditionally rendering the OldEpisodes component for a given Show.
         isShowLocked: false,
         episodesSerial: [],
+
+        showNumber: 1,
+        showsSerial: [],
+        playlistTitle: "",
+        playlistSerial: [],
     }
 
     // TODO: Handle changes in OldEpisodes.js like this so that I don't need to call the update myself (might already work)
@@ -25,10 +30,41 @@ class Shows extends React.Component {
         showNameInput.disabled = this.state.isShowLocked;
     };
 
-    handleEpisodesSave = async (saveSerial) => {
+    handleEpisodesSave = async (saveSerial, playlistTitle) => {
         await this.setState({episodesSerial: saveSerial});
         console.log(this.state.episodesSerial);
+        // console.log(typeof this.state.episodesSerial);
+
+        // console.log(playlistTitle);
+
+        // var epSerial = this.state.episodesSerial; // FIXME: passes by ref (more an FYI than a fixme)
+        var showSerial = saveSerial;
+        showSerial['show_name'] = this.state.showName;
+        await this.setState({showsSerial: showSerial});
+        console.log(this.state.showsSerial);
+
+        // TODO: The following should be on the outer-most node of the final serial object, whereas the showName should be one node deeper in.
+        var playlistSerial = saveSerial;
+        // playlistSerial.playlist_title = playlistTitle;
+        // playlistSerial.show_name = this.state.showName;
+        playlistSerial['playlist_title'] = playlistTitle;
+        playlistSerial['show_name'] = this.state.showName;
+        await this.setState({playlistSerial: playlistSerial});
+        console.log(this.state.playlistSerial);
+
+        var altSerial = {};
+        altSerial['playlist_title'] = playlistTitle;
+        // TODO: The following column creation will need to be run in a loop against each show in the playlist being saved (once I get multiple shows feature implemented, this can be fixed)
+        // TODO ALT: Alternatively, we could insert first with just the DB's playlist function, then we can submit each show individually? It's more calls to DB, if possible I would prefer to keep our calls from app to DB to one per action
+        altSerial['show_name'] = this.state.showName;
+
+        // altSerial['Seasons'] = {saveSerial};
+
+        altSerial['Seasons'] = saveSerial;
+
+        console.log(altSerial);
     }
+
 
     render() {
         return (
@@ -48,7 +84,9 @@ class Shows extends React.Component {
 
                 </div>
 
-                {this.state.isShowLocked && <Episodes showName={this.state.showName} handleEpisodesSave={this.handleEpisodesSave} />}
+                {/*TODO: The following is the initial implementation of a showNumber value. I want it to increment by 1 for each show in the playlist (to be handled by the real Shows component, once this becomes just Show)*/}
+                {this.state.isShowLocked && <Episodes showName={this.state.showName} showNumber={this.state.showNumber}
+                                                      handleEpisodesSave={this.handleEpisodesSave}/>}
             </React.Fragment>
         );
     }
